@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 
 const locationSchema = new Schema({
+  User: String,
   deviceName: String,
   locations: { type: Array, default: [] },
 });
