@@ -73,6 +73,7 @@ class App extends React.Component {
           <Map
             containerElement={<div style={{ height: `${100}%` }} />}
             mapElement={<div style={{ height: `${100}%` }} />}
+            displayed={this.state.displayed}
           />
         </div>
       </div>
