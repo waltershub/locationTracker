@@ -69,13 +69,13 @@ class App extends React.Component {
           </button>
         </div>
         <div />
-        <div>
-          <Map
-            containerElement={<div style={{ height: `${100}%` }} />}
-            mapElement={<div style={{ height: `${100}%` }} />}
-            displayed={this.state.displayed}
-          />
-        </div>
+
+        <Map
+          containerElement={<div style={{ height: `${100}%` }} />}
+          mapElement={<div style={{ height: `${100}%` }} />}
+          displayed={this.state.displayed}
+        />
+
       </div>
     </div>);
   }
