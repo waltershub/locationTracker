@@ -1,0 +1,174 @@
+body {
+    font-family: 'Source Sans Pro';
+    font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+button {
+    padding: 3px 15px;
+    background-color: #e0e0e0;
+    border: 1px solid rgb(175, 175, 175);
+    color: #696969;
+}
+
+#container{
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 85%;
+}
+
+table{
+    padding-bottom: 15px;
+}
+
+#title{
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+#search > p {
+    display: block;
+    font-size: 15px;
+    margin: 12px 0 4px 7px;
+}
+
+input{
+    display: inline-block;
+    width: 490px;
+    font-size: 16px;
+    padding: 6px 6px 6px 8px;
+    outline: none;
+    background-color: #fafafc;
+    border: 1px solid #cccccc;
+}
+
+/*#search > input {*/
+     /*display: inline-block;*/
+     /*width: 490px;*/
+     /*font-size: 18px;*/
+     /*padding: 3px 3px 3px 5px;*/
+     /*outline: none;*/
+ /*}*/
+
+img.listing-object {
+    height: 90px;
+    width: 90px;
+    border-radius: 3px;
+}
+
+.yelp-list {
+    padding-top: 3px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+}
+
+.yelp-list-entry-address{
+    color: #8a8a8a;
+    font-size: 11px;
+}
+
+.listing-body {
+    padding-left: 5px;
+    width: 50%;
+    color: #8a8a8a;
+    font-size: 14px;
+}
+
+.yelp-list-entry-name{
+    font-weight: 300;
+    color: #585858;
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+.yelp-list-entry {
+    display: flex;
+    width: 99%;
+    height: 100px;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.yelp-list-entry-container {
+    display: inline-flex;
+    margin: 3px 3px 3px 5px;
+    width: 95%;
+    padding: 5px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #f3f3f3;
+    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    transition: background-color .25s ease-in-out;
+    -moz-transition: background-color .25s ease-in-out;
+    -webkit-transition: background-color .25s ease-in-out;
+}
+
+.yelp-list-entry-container:hover{
+    /*box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.19);*/
+    /*border: 1px solid #FA7070;*/
+    /*border: 1px solid #ccd8bf;*/
+    background-color: #dfe2dc;
+    transition: background-color .25s ease-in-out;
+    -moz-transition: background-color .25s ease-in-out;
+    -webkit-transition: background-color .25s ease-in-out;
+}
+
+.subMapBox {
+    width: 600px;
+    height: 500px;
+    background-color: #eee;
+    /*border: 1px solid black;*/
+    /*border-radius: 5px;*/
+}
+
+.messageText{
+    margin: 3px 0px 0px 0px;
+    padding: 0;
+    color: #4E9DEA;
+    font-size: 11px;
+    vertical-align: top;
+    /*display: inline-block;*/
+}
+
+.resultsContainer {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+}
+
+.media-left.media-middle {
+    height: 100px;
+}
+
+.listContainer {
+    width: 444px;
+    height: 500px;
+    /*border: 1px solid black;*/
+    overflow: auto;
+    border-radius: 5px;
+    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    margin: 2px;
+}
+
+.mapElement {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.mapBox {
+    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    margin: 2px;
+}
+
+.yelp-list-entry-address {
+    padding-left: 5px;
+    /*color: #c3c3c3;*/
+}

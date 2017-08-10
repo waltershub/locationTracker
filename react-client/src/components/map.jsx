@@ -5,15 +5,25 @@ import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 const Map = props => (
   <GoogleMap
     defaultZoom={16}
-    defaultCenter={{ lat: 40.751094, lng: -73.987597 }}
+    defaultCenter={{ lat: 40.6219853, lng: -73.94007739999999 }}
   >
     {props.displayed.map(marker =>
       (<Marker
         key={marker._id}
-        postion={{ lat: marker.latitude, lng: marker.longitude }}
+        postion={{ lat: marker.locations[0].latitude, lng: marker.locations[0].longitude }}
         label={marker.deviceName}
       />)) }
-
+    {
+      props.displayed.forEach((device) => {
+        device.locations.map((location, i) => (
+          <Marker
+            key={i}
+            postion={{ lat: location.latitude, lng: location.longitude }}
+            label={device.deviceName}
+          />
+        ));
+      })
+    }
   </GoogleMap>
 
 );

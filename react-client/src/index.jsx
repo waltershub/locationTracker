@@ -69,13 +69,15 @@ class App extends React.Component {
           </button>
         </div>
         <div />
-
-        <Map
-          containerElement={<div style={{ height: `${100}%` }} />}
-          mapElement={<div style={{ height: `${100}%` }} />}
-          displayed={this.state.displayed}
-        />
-
+        <div className="mapBox" >
+          <div className="subMapBox">
+            <Map
+              containerElement={<div style={{ height: `${100}%` }} />}
+              mapElement={<div style={{ height: `${100}%` }} />}
+              displayed={this.state.displayed}
+            />
+          </div>
+        </div>
       </div>
     </div>);
   }
