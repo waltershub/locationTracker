@@ -7,13 +7,12 @@ const Map = props => (
     defaultZoom={16}
     defaultCenter={{ lat: 40.6219853, lng: -73.94007739999999 }}
   >
-
     {
-      props.displayed.forEach(device => device.locations.map((location, i) => (
+      props.displayed.map(device => device.locations.map((location, i) => (
         <Marker
           key={i}
-          postion={{ lat: location.latitude, lng: location.longitude }}
-          label={device.deviceName}
+          position={{ lat: location.latitude, lng: location.longitude }}
+          label={device.deviceNam}
         />
       )))
     }
