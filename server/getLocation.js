@@ -6,7 +6,7 @@ function location() {
   gps.getTowers((err, towers) => {
   // return wifi network info
     if (err) throw err;
-    console.log('error', err);
+    console.log(towers);
     // console.log('towers', towers);
     gps.getLocation(towers, (error, loc) => {
       console.log(error);

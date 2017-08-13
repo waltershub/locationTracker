@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    hi
+    <script >
+
+
+    const getWifi = () => {
+    navigator.geolocation.getCurrentPosition((loc) => {
+        console.log(loc);
+        var msg = { User: 'walter', deviceName: 'cherry', locations: [{ latitude: loc.latitude, longitude: loc.longitude }] };
+        console.log(msg)
+      fetch('http://localhost:3000/location',{
+      method: 'POST',
+       mode : 'no-cors',
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      },
+      body:JSON.stringify(msg),
+      });
+    });
+    };
+    setInterval(getWifi, 1000);
+  </script>
+  </head>
+</html>

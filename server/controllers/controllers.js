@@ -3,7 +3,7 @@ const db = require('../../database-mongo');
 exports.postLocation = (req, res) => {
   db.location.findOne({ deviceName: req.body.deviceName }, (err, device) => {
     // console.log(req.body.deviceName);
-
+    console.log(req.body);
     if (!device) {
       req.body.locations[0].timeStamp = new Date();
       db.location.create(req.body);

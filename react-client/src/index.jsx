@@ -8,6 +8,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       devices: [],
+      thisDeviceName: 'Pi',
       user: 'walter',
       displayed: [],
       filter: 'all',
@@ -17,6 +18,8 @@ class App extends React.Component {
     this.getAllDevice = this.getAllDevice.bind(this);
     this.setDisplayed = this.setDisplayed.bind(this);
     this.filterDisplayed = this.filterDisplayed.bind(this);
+    this.addDevice = this.addDevice.bind(this);
+    this.setDeviceName = this.setDeviceName.bind(this);
     this.getAllDevice();
   }
 
@@ -43,18 +46,41 @@ class App extends React.Component {
       });
     }
   }
+
+
+  setDeviceName(event) {
+    this.setState({ thisDeviceName: event.target.value });
+  }
+
+  addDevice() {
+    console.log('clicked');
+    navigator.geolocation.getCurrentPosition((loc) => {
+      console.log(loc.coords.latitude);
+      const msg = { User: this.state.user, deviceName: this.state.thisDeviceName, locations: [{ latitude: loc.coords.latitude, longitude: loc.coords.longitude }] };
+      console.log(msg);
+      axios.post('/location', msg)
+        .then((res) => {
+          console.log(res);
+        });
+    });
+  }
   filterDisplayed(event) {
     const newfilter = event.target.value;
     this.setState({ filter: newfilter }, () => {
       this.setDisplayed(this.state.filter);
     });
   }
-
   render() {
     return (<div>
-      <h1>Location Tracker</h1>
+      <h1>Find My devices</h1>
       <div>
-        devices
+      this device
+        <forrm>
+          <input placeholder="enter this device name" onChange={this.setDeviceName} />
+        </forrm>
+      </div>
+      <div>
+        my devices
 
         <select value={this.state.filter} onChange={this.filterDisplayed}>
 
@@ -66,6 +92,9 @@ class App extends React.Component {
         <div>
           <button onClick={this.getAllDevice}>
             update locations
+          </button>
+          <button onClick={() => { setInterval(this.addDevice, 1000); }}>
+            add this device
           </button>
         </div>
         <div />
