@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Map from './components/map.jsx';
 import Sound from 'react-sound';
+import { Button, ButtonGroup, DropdownButton } from 'react-bootstrap';
 
 class App extends React.Component {
   constructor(props) {
@@ -112,57 +113,58 @@ class App extends React.Component {
   }
 
   render() {
-    return (<div>
-      <h1>Find My devices</h1>
-      <div>
-      this device
-        <forrm>
-          <input placeholder="enter this device name" onChange={this.setDeviceName} />
-        </forrm>
-        <button onClick={this.addDevice}>
-          add this device
-        </button>
-      </div>
-      <div>
-        my devices
-
-        <select value={this.state.filter} onChange={this.filterDisplayed}>
-
-          <option value="all" >all</option>
-          {this.state.devices.map(device =>
-            <option key={device._id} value={device.deviceName}>{device.deviceName}</option>,
-          )}
-        </select>
+    return (
+      <center>
         <div>
-          <button onClick={this.getAllDevice}>
-            update locations
-          </button>
-          <button onClick={this.lost}>
-            lost
-          </button>
-          <button onClick={this.found}>
-            found
-          </button>
-          <Sound
-            url="/alarm.mp3"
-            playStatus={this.state.alarmStatus}
-          />
+          <h1>Find My devices</h1>
+          <div>
+            <forrm>
+              <input placeholder="enter this device name" onChange={this.setDeviceName} />
+            </forrm>
+            <Button onClick={this.addDevice}>
+          add this device
+            </Button>
+          </div>
+          <div>
+            <h2>  my devices</h2>
+            <select value={this.state.filter} onChange={this.filterDisplayed}>
 
-        </div>
-        <div />
-        <div className="mapBox" >
-          <div className="subMapBox">
-            <Map
-              containerElement={<div style={{ height: `${100}%` }} />}
-              mapElement={<div style={{ height: `${100}%` }} />}
-              displayed={this.state.displayed}
-              centre={this.state.centre}
-              markerCentre={this.markerCentre}
-            />
+              <option value="all" >all</option>
+              {this.state.devices.map(device =>
+                <option key={device._id} value={device.deviceName}>{device.deviceName}</option>,
+              )}
+            </select>
+            <div>
+              <Button onClick={this.getAllDevice}>
+            update locations
+              </Button>
+              <Button onClick={this.lost}>
+            lost
+              </Button>
+              <Button onClick={this.found}>
+            found
+              </Button>
+              <Sound
+                url="/alarm.mp3"
+                playStatus={this.state.alarmStatus}
+              />
+
+            </div>
+            <div />
+            <div className="mapBox" >
+              <div className="subMapBox">
+                <Map
+                  containerElement={<div style={{ height: `${100}%` }} />}
+                  mapElement={<div style={{ height: `${100}%` }} />}
+                  displayed={this.state.displayed}
+                  centre={this.state.centre}
+                  markerCentre={this.markerCentre}
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>);
+      </center>);
   }
 }
 
