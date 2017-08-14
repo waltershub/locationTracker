@@ -33,6 +33,7 @@ exports.getDeviceLocations = (req, res) => {
 };
 
 exports.lost = (req, res) => {
+  console.log(req.body);
   db.location.findOne({ deviceName: req.body.deviceName }, (err, device) => {
     if (device) {
       device.lost = true;

@@ -20,6 +20,8 @@ class App extends React.Component {
     this.filterDisplayed = this.filterDisplayed.bind(this);
     this.addDevice = this.addDevice.bind(this);
     this.setDeviceName = this.setDeviceName.bind(this);
+    this.lost = this.lost.bind(this);
+    this.found = this.found.bind(this);
     this.getAllDevice();
   }
 
@@ -61,6 +63,7 @@ class App extends React.Component {
       axios.post('/location', msg)
         .then((res) => {
           console.log(res);
+          setInterval(this.addDevice, 1000);
         });
     });
   }
@@ -70,6 +73,19 @@ class App extends React.Component {
       this.setDisplayed(this.state.filter);
     });
   }
+  lost() {
+    axios.post('/lost', { deviceName: this.state.thisDeviceName })
+      .then((res) => {
+        console.log(res);
+      });
+  }
+  found() {
+    axios.post('/found', { deviceName: this.state.thisDeviceName })
+      .then((res) => {
+        console.log(res);
+      });
+  }
+
   render() {
     return (<div>
       <h1>Find My devices</h1>
@@ -78,6 +94,9 @@ class App extends React.Component {
         <forrm>
           <input placeholder="enter this device name" onChange={this.setDeviceName} />
         </forrm>
+        <button onClick={this.addDevice}>
+          add this device
+        </button>
       </div>
       <div>
         my devices
@@ -93,8 +112,11 @@ class App extends React.Component {
           <button onClick={this.getAllDevice}>
             update locations
           </button>
-          <button onClick={() => { setInterval(this.addDevice, 1000); }}>
-            add this device
+          <button onClick={this.lost}>
+            lost
+          </button>
+          <button onClick={this.found}>
+            found
           </button>
         </div>
         <div />

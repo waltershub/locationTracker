@@ -12,7 +12,7 @@ const Map = props => (
         <Marker
           key={i}
           position={{ lat: location.latitude, lng: location.longitude }}
-          label={device.deviceNam}
+          label={device.deviceName}
         />
       )))
     }
