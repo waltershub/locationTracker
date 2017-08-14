@@ -126,7 +126,7 @@ class App extends React.Component {
             found
           </button>
           <Sound
-            url="alarm.mp3"
+            url="/alarm.mp3"
             playStatus={this.state.alarmStatus}
           />
 
