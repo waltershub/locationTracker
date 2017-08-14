@@ -14,7 +14,11 @@ exports.postLocation = (req, res) => {
       device.locations.push(req.body.locations[0]);
       device.save((error, updatedDevice) => {
         if (error) throw error;
-        res.send('updated');
+        if (updatedDevice.lost) {
+          res.send('lost');
+        } else {
+          res.send('updated');
+        }
       });
     }
   });
@@ -26,4 +30,32 @@ exports.getDeviceLocations = (req, res) => {
     .then((data) => {
       res.send(data);
     });
+};
+
+exports.lost = (req, res) => {
+  db.location.findOne({ deviceName: req.body.deviceName }, (err, device) => {
+    if (device) {
+      device.lost = true;
+      device.save((error, updatedDevice) => {
+        if (error) throw err;
+        res.send(updatedDevice);
+      });
+    } else {
+      res.send('not such device');
+    }
+  });
+};
+
+exports.found = (req, res) => {
+  db.location.findOne({ deviceName: req.body.deviceName }, (err, device) => {
+    if (device) {
+      device.lost = false;
+      device.save((error, updatedDevice) => {
+        if (error) throw err;
+        res.send(updatedDevice);
+      });
+    } else {
+      res.send('not such device');
+    }
+  });
 };
