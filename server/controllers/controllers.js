@@ -11,7 +11,7 @@ exports.postLocation = (req, res) => {
     } else {
       console.log('updating');
       req.body.locations[0].timeStamp = new Date();
-      device.locations.push(req.body.locations[0]);
+      device.locations.unshift(req.body.locations[0]);
       device.save((error, updatedDevice) => {
         if (error) throw error;
         if (updatedDevice.lost) {

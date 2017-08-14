@@ -9,15 +9,15 @@ const Map = props => (
     defaultCenter={props.centre}
   >
     {
-      props.displayed.map(device => device.locations.map((location, i) => (
+      props.displayed.map((device, i) => (
         <Marker
           key={i}
-          position={{ lat: location.latitude, lng: location.longitude }}
+          position={{ lat: device.locations[0].latitude, lng: device.locations[0].longitude }}
           label={device.deviceName}
-          value={{ lat: location.latitude, lng: location.longitude }}
-          onClick={() => { props.markerCentre({ lat: location.longitude, lng: location.longitude }); }}
+
+          onClick={() => { props.markerCentre({ lat: device.locations[0].latitude, lng: device.locations[0].longitude }); }}
         />
-      )))
+      ))
     }
   </GoogleMap>
 

@@ -89,7 +89,7 @@ class App extends React.Component {
           } else {
             this.setState({ alarmStatus: 'PAUSED' });
           }
-          setInterval(this.addDevice, 1000);
+          setInterval(this.addDevice, 10000);
         });
     });
   }
