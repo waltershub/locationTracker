@@ -13,6 +13,7 @@ class App extends React.Component {
       user: 'walter',
       displayed: [],
       filter: 'all',
+      centre: { lat: 40.751094, lng: -73.987597 },
       alarmStatus: 'PAUSED',
 
     };
@@ -24,7 +25,10 @@ class App extends React.Component {
     this.setDeviceName = this.setDeviceName.bind(this);
     this.lost = this.lost.bind(this);
     this.found = this.found.bind(this);
+    this.setCentre = this.setCentre.bind(this);
+    this.markerCentre = this.markerCentre.bind(this);
     this.getAllDevice();
+    this.setCentre();
   }
 
   getAllDevice() {
@@ -38,6 +42,20 @@ class App extends React.Component {
       });
   }
 
+  setCentre() {
+    navigator.geolocation.getCurrentPosition((loc) => {
+      const position = { lat: loc.coords.latitude, lng: loc.coords.longitude };
+      this.setState({ centre: position }, () => {
+        console.log('new postion', this.state.centre);
+      });
+    });
+  }
+
+  markerCentre(postion) {
+    const newPostion = { lat: postion.lat, lng: postion.lng };
+    console.log('clicked new postion', newPostion);
+    this.setState({ centre: newPostion });
+  }
 
   setDisplayed(filter = 'all') {
     if (filter === 'all') {
@@ -138,6 +156,8 @@ class App extends React.Component {
               containerElement={<div style={{ height: `${100}%` }} />}
               mapElement={<div style={{ height: `${100}%` }} />}
               displayed={this.state.displayed}
+              centre={this.state.centre}
+              markerCentre={this.markerCentre}
             />
           </div>
         </div>
