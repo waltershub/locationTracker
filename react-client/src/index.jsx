@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Map from './components/map.jsx';
+import Sound from 'react-sound';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class App extends React.Component {
       user: 'walter',
       displayed: [],
       filter: 'all',
+      alarmStatus: 'PAUSED',
 
     };
 
@@ -63,6 +65,11 @@ class App extends React.Component {
       axios.post('/location', msg)
         .then((res) => {
           console.log(res);
+          if (res.data === 'lost') {
+            this.setState({ alarmStatus: 'PLAYING' });
+          } else {
+            this.setState({ alarmStatus: 'PAUSED' });
+          }
           setInterval(this.addDevice, 1000);
         });
     });
@@ -74,13 +81,13 @@ class App extends React.Component {
     });
   }
   lost() {
-    axios.post('/lost', { deviceName: this.state.thisDeviceName })
+    axios.post('/lost', { deviceName: this.state.filter })
       .then((res) => {
         console.log(res);
       });
   }
   found() {
-    axios.post('/found', { deviceName: this.state.thisDeviceName })
+    axios.post('/found', { deviceName: this.state.filter })
       .then((res) => {
         console.log(res);
       });
@@ -118,6 +125,11 @@ class App extends React.Component {
           <button onClick={this.found}>
             found
           </button>
+          <Sound
+            url="alarm.mp3"
+            playStatus={this.state.alarmStatus}
+          />
+
         </div>
         <div />
         <div className="mapBox" >
