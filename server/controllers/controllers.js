@@ -3,7 +3,6 @@ const db = require('../../database-mongo');
 exports.postLocation = (req, res) => {
   db.location.findOne({ deviceName: req.body.deviceName }, (err, device) => {
     // console.log(req.body.deviceName);
-    console.log(req.body);
     if (!device) {
       req.body.locations[0].timeStamp = new Date();
       db.location.create(req.body);
@@ -25,7 +24,6 @@ exports.postLocation = (req, res) => {
 };
 
 exports.getDeviceLocations = (req, res) => {
-  console.log(req.headers);
   db.location.find({ User: req.headers.user })
     .then((data) => {
       res.send(data);
@@ -33,7 +31,6 @@ exports.getDeviceLocations = (req, res) => {
 };
 
 exports.lost = (req, res) => {
-  console.log(req.body);
   db.location.findOne({ deviceName: req.body.deviceName }, (err, device) => {
     if (device) {
       device.lost = true;

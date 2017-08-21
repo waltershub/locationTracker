@@ -5,6 +5,10 @@ import Map from './components/map.jsx';
 import Sound from 'react-sound';
 import { Button, ButtonGroup, DropdownButton } from 'react-bootstrap';
 
+const io = require('socket.io-client');
+
+const socket = io();
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -70,6 +74,14 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount() {
+    socket.on('lost', (data) => {
+      console.log(data);
+      if (data === this.state.deviceName) {
+        this.setState({ alarmStatus: 'PLAYING' });
+      }
+    });
+  }
 
   setDeviceName(event) {
     this.setState({ thisDeviceName: event.target.value });
@@ -81,16 +93,17 @@ class App extends React.Component {
       console.log(loc.coords.latitude);
       const msg = { User: this.state.user, deviceName: this.state.thisDeviceName, locations: [{ latitude: loc.coords.latitude, longitude: loc.coords.longitude }] };
       console.log(msg);
-      axios.post('/location', msg)
-        .then((res) => {
-          console.log(res);
-          if (res.data === 'lost') {
-            this.setState({ alarmStatus: 'PLAYING' });
-          } else {
-            this.setState({ alarmStatus: 'PAUSED' });
-          }
-          setInterval(this.addDevice, 10000);
-        });
+      // axios.post('/location', msg)
+      //   .then((res) => {
+      //     console.log(res);
+      //     if (res.data === 'lost') {
+      //       this.setState({ alarmStatus: 'PLAYING' });
+      //     } else {
+      //       this.setState({ alarmStatus: 'PAUSED' });
+      //     }
+      //     setInterval(this.addDevice, 10000);
+      //   });
+      socket.emit('location', msg);
     });
   }
   filterDisplayed(event) {
@@ -100,10 +113,12 @@ class App extends React.Component {
     });
   }
   lost() {
-    axios.post('/lost', { deviceName: this.state.filter })
-      .then((res) => {
-        console.log(res);
-      });
+    // axios.post('/lost', { deviceName: this.state.filter })
+    //   .then((res) => {
+    //     console.log(res);
+    //   });
+    console.log('lost');
+    socket.emit('lost', this.state.filter);
   }
   found() {
     axios.post('/found', { deviceName: this.state.filter })
