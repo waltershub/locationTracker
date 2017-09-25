@@ -20,6 +20,7 @@ class App extends React.Component {
       filter: 'all',
       centre: { lat: 40.751094, lng: -73.987597 },
       alarmStatus: 'PAUSED',
+      lostStatus: false,
 
     };
 
@@ -32,6 +33,7 @@ class App extends React.Component {
     this.found = this.found.bind(this);
     this.setCentre = this.setCentre.bind(this);
     this.markerCentre = this.markerCentre.bind(this);
+    this.playStatus = this.playStatus.bind(this);
     this.getAllDevice();
     this.setCentre();
   }
@@ -79,6 +81,8 @@ class App extends React.Component {
       console.log('hello from socket', data);
       console.log(this.state.deviceName);
       if (data === this.state.deviceName) {
+      //  setInterval(() => { this.setState({ alarmStatus: 'PLAYING' }, console.log(this.state.alarmStatus)); }, 1000);
+        this.setState({ lostStatus: true });
         this.setState({ alarmStatus: 'PLAYING' }, console.log(this.state.alarmStatus));
       }
     });
@@ -92,7 +96,9 @@ class App extends React.Component {
     console.log('clicked');
     navigator.geolocation.getCurrentPosition((loc) => {
       console.log(loc.coords.latitude);
-      const msg = { User: this.state.user, deviceName: this.state.thisDeviceName, locations: [{ latitude: loc.coords.latitude, longitude: loc.coords.longitude }] };
+      const msg = { User: this.state.user,
+        deviceName: this.state.thisDeviceName,
+        locations: [{ latitude: loc.coords.latitude, longitude: loc.coords.longitude }] };
       console.log(msg);
       // axios.post('/location', msg)
       //   .then((res) => {
@@ -114,18 +120,26 @@ class App extends React.Component {
     });
   }
   lost() {
-    // axios.post('/lost', { deviceName: this.state.filter })
-    //   .then((res) => {
-    //     console.log(res);
-    //   });
-    console.log('lost');
-    socket.emit('lost', this.state.filter);
-  }
-  found() {
-    axios.post('/found', { deviceName: this.state.filter })
+    axios.post('/lost', { deviceName: this.state.filter })
       .then((res) => {
         console.log(res);
       });
+    console.log('lost');
+
+    socket.emit('lost', this.state.filter);
+  }
+  found() {
+    axios.post('/found', { deviceName: this.state.deviceName })
+      .then((res) => {
+        console.log(res);
+      });
+    this.setState({ lostStatus: false });
+  }
+
+  playStatus() {
+    if (this.state.lostStatus === true) {
+      this.setState({ alarmStatus: 'PLAYING' });
+    }
   }
 
   render() {
@@ -163,6 +177,7 @@ class App extends React.Component {
               <Sound
                 url="/alarm.mp3"
                 playStatus={this.state.alarmStatus}
+                onFinishedPlaying={this.playStatus}
               />
 
             </div>
