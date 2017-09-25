@@ -26,7 +26,8 @@ const socketInstance = (io) => {
       });
     });
     socket.on('lost', (data) => {
-      console.log(data);
+      console.log('socker says hi', data);
+      io.sockets.emit('lost', data);
     });
   });
 };

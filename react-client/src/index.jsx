@@ -14,7 +14,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       devices: [],
-      thisDeviceName: 'Pi',
+      deviceName: 'Pi',
       user: 'walter',
       displayed: [],
       filter: 'all',
@@ -76,15 +76,16 @@ class App extends React.Component {
 
   componentDidMount() {
     socket.on('lost', (data) => {
-      console.log(data);
+      console.log('hello from socket', data);
+      console.log(this.state.deviceName);
       if (data === this.state.deviceName) {
-        this.setState({ alarmStatus: 'PLAYING' });
+        this.setState({ alarmStatus: 'PLAYING' }, console.log(this.state.alarmStatus));
       }
     });
   }
 
   setDeviceName(event) {
-    this.setState({ thisDeviceName: event.target.value });
+    this.setState({ deviceName: event.target.value });
   }
 
   addDevice() {
